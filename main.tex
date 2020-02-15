@@ -1,0 +1,95 @@
+%!TEX program = xelatex
+\documentclass[9pt,a4paper]{extarticle}
+\usepackage[a4paper,top=1in,bottom=1in,inner=2.25in,outer=1in,marginparsep=0.25in,marginparwidth=1.5in]{geometry}
+\usepackage{tenth}
+\adjustsidenote{\raggedright}
+
+\title{\XeLaTeX{} Templates}
+\author{Firstname Lastname \texttt{<author@example.com>}}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\section{INTRODUCTION}
+
+This document template was primarily prepared so that
+Thai scripts (อักษรไทย) may be used inside \XeLaTeX{} document.
+Various typographical styles are adjusted to personal taste.
+This work is an accumulation of almost 10 years of experience with \LaTeX{} ecosystems.
+
+You may freely adapt this template to suit your needs.
+It is available freely under MIT License.
+Feel free to hit me with questions if you need any help.
+
+Skip to the next section if you are ready.
+
+\lipsum[1]
+
+
+\section{TEMPLATE FEATURES}
+
+This \LaTeX{} document template has the following features.
+
+\begin{enumerate}
+
+\item Supports text in both Latin and Thai scripts. For example,
+    \begin{center}
+        สามารถใช้งานภาษาไทยได้ตามปกติ
+    \end{center}
+    The revised \textit{Sarabun}\sidenote{The font was designed by Suppakit Chalermlarp
+    and revised by Cadson Demak under Google 13+1 Thai Fonts Project.}
+    font is used as the default font.
+
+\item Math equations also uses the same font by default, e.g.,
+    \begin{equation}
+        x^2 + y^2 + z^2 = 1 \tag{3D Sphere}
+    \end{equation}
+
+\item Supports simple commands to switch between six font weights on-the-fly.
+    \begin{center}
+        \begin{tabular}{rl}
+            \verb"\lighterfont" & {\lighterfont ฟอนต์ชุด Sarabun-ExtralLight} \\
+            \verb"\normalfont"  & {\normalfont ฟอนต์ชุด Sarabun-Light}     \\
+            \verb"\heavierfont" & {\heavierfont ฟอนต์ชุด Sarabun-Regular} \\
+            \verb"\lighterfont\bfseries" & {\lighterfont\bfseries ฟอนต์ชุด Sarabun-SemiBold} \\
+            \verb"\normalfont\bfseries"  & {\normalfont\bfseries ฟอนต์ชุด Sarabun-Bold}     \\
+            \verb"\heavierfont\bfseries" & {\heavierfont\bfseries ฟอนต์ชุด Sarabun-ExtralBold} \\
+        \end{tabular}
+    \end{center}
+    All fonts shown above also deploy \verb"\itshape" variants.
+
+\item Supports sidenote \verb"\sidenote{As shown here.}"\sidenote{As shown here.}
+
+\item A few text decorations such as text pills: \labelpill{LABEL PILL} \labelpillalt{ALT LABEL PILL}
+    \begin{center}
+        \verb"\labelpill{LABEL PILL} \labelpillalt{ALT LABEL PILL}"
+    \end{center}
+    Text highlighting: \rhlt{Red.} \ghlt{Green.} \bhlt{Blue.} \yhlt{Yellow.} \hlt[black!15!white]{And Custom.}
+    \begin{center}
+        \verb"\rhlt{Red.} \ghlt{Green.} \bhlt{Blue.} \yhlt{Yellow.}" \\
+        \verb"\hlt[black!15!white]{And Custom.}"
+    \end{center}
+    Text highlighting also works inside math equations.
+    \begin{equation}
+        \hlt{x^2} + \hlt{y^2} = z^2  \tag{Pythagorean Theorem}
+    \end{equation}
+
+\item A few header decorations such as \verb"\secbannerpre" and \verb"\secbannerpost"
+    \begin{center}
+        \Large\heavierfont\bfseries\addfontfeature{LetterSpace=10}
+        \secbannerpre{}
+        NEW SECTION
+        \secbannerpost{}
+    \end{center}
+
+\item To be continued.
+
+\end{enumerate}
+
+\section{LOREM IPSUM}
+\lipsum[1-8]
+
+\end{document}
+
