@@ -2,14 +2,22 @@
 \documentclass[9pt,a4paper]{extarticle}
 \usepackage[a4paper,top=1in,bottom=1in,inner=2.25in,outer=1in,marginparsep=0.25in,marginparwidth=1.5in]{geometry}
 \usepackage{tenth}
-\adjustsidenote{\raggedright}
 
+% Use options
+\redefinethaicounters           % turn this on to allow thai enumeration labels
+\adjustsidenote{\raggedright}   % set sidenote to ragged right
+\bannerinsec                    % decorate section text with banner
+\renewrobustcmd{\pageheader}{\XeLaTeX{} Template Example}   % page header by default
+\lstset{language=[LaTeX]TeX}    % set listing default language
+
+% Document title
 \title{\XeLaTeX{} Templates}
 \author{Firstname Lastname \texttt{<author@example.com>}}
 \date{}
 
 \begin{document}
 \maketitle
+\thispagestyle{titlepage}  % only page number, no header
 
 \input{parts/intro.tex}
 

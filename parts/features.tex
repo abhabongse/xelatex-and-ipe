@@ -16,47 +16,259 @@ This \LaTeX{} document template has the following features.
 
 \item Math equations also uses the same font by default, e.g.,
     \begin{equation}
-        x^2 + y^2 + z^2 = 1 \tag{3D Sphere}
+        x^2 + y^2 + z^2 = 1 \tag{3-Dimensional Sphere}
+    \end{equation}
+    \begin{equation}
+        x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \tag{Quadratic Solution}
     \end{equation}
 
-\item Supports simple commands to switch between six font weights on-the-fly.
+\item Supports sidenote \lstinline"\sidenote{As shown here and above.}"\sidenote{As shown here and above.} \\
+    Sidenotes are ragged right due to the command \lstinline"\adjustsidenote{\raggedright}"
+    at the document preamble (see source).
+
+    If you are not going to use \lstinline"\sidenote" then you may want to 
+    re-adjust page margins using \lstinline{geometry} package at the document preamble. 
+    
+\item Supports simple commands to switch between eight font weights on-the-fly.
     \begin{center}
         \begin{tabular}{rl}
-            \verb"\lighterfont" & {\lighterfont ฟอนต์ชุด Sarabun-ExtralLight} \\
-            \verb"\normalfont"  & {\normalfont ฟอนต์ชุด Sarabun-Light}     \\
-            \verb"\heavierfont" & {\heavierfont ฟอนต์ชุด Sarabun-Regular} \\
-            \verb"\lighterfont\bfseries" & {\lighterfont\bfseries ฟอนต์ชุด Sarabun-SemiBold} \\
-            \verb"\normalfont\bfseries"  & {\normalfont\bfseries ฟอนต์ชุด Sarabun-Bold}     \\
-            \verb"\heavierfont\bfseries" & {\heavierfont\bfseries ฟอนต์ชุด Sarabun-ExtralBold} \\
+            \lstinline"\thinfont"            & {\thinfont ฟอนต์ชุด Sarabun-Thin}                   \\
+            \lstinline"\lightfont"           & {\lightfont ฟอนต์ชุด Sarabun-ExtraLight}            \\
+            \lstinline"\normalfont"          & {\normalfont ฟอนต์ชุด Sarabun-Light}                \\
+            \lstinline"\heavyfont"           & {\heavyfont ฟอนต์ชุด Sarabun-Regular}               \\
+            \lstinline"\thinfont\bfseries"   & {\thinfont\bfseries ฟอนต์ชุด Sarabun-Medium}        \\
+            \lstinline"\lightfont\bfseries"  & {\lightfont\bfseries ฟอนต์ชุด Sarabun-SemiBold}     \\
+            \lstinline"\normalfont\bfseries" & {\normalfont\bfseries ฟอนต์ชุด Sarabun-Bold}        \\
+            \lstinline"\heavyfont\bfseries"  & {\heavyfont\bfseries ฟอนต์ชุด Sarabun-ExtralBold}   \\
         \end{tabular}
     \end{center}
-    All fonts shown above also deploy \verb"\itshape" variants.
-
-\item Supports sidenote \verb"\sidenote{As shown here.}"\sidenote{As shown here.}
+    All fonts shown above also deploy \lstinline"\itshape" variants.
 
 \item A few text decorations such as text pills: \labelpill{LABEL PILL} \labelpillalt{ALT LABEL PILL}
-    \begin{center}
-        \verb"\labelpill{LABEL PILL} \labelpillalt{ALT LABEL PILL}"
-    \end{center}
+\begin{lstlisting}[numbers=none]
+\labelpill{LABEL PILL} \labelpillalt{ALT LABEL PILL}
+\end{lstlisting}
     Text highlighting: \rhlt{Red.} \ghlt{Green.} \bhlt{Blue.} \yhlt{Yellow.} \hlt[black!15!white]{And Custom.}
-    \begin{center}
-        \verb"\rhlt{Red.} \ghlt{Green.} \bhlt{Blue.} \yhlt{Yellow.}" \\
-        \verb"\hlt[black!15!white]{And Custom.}"
-    \end{center}
+\begin{lstlisting}[numbers=none]
+\rhlt{Red.} \ghlt{Green.} \bhlt{Blue.} \yhlt{Yellow.}
+\hlt[black!15!white]{And Custom.}
+\end{lstlisting}
     Text highlighting also works inside math equations.
     \begin{equation}
         \hlt{x^2} + \hlt{y^2} = z^2  \tag{Pythagorean Theorem}
     \end{equation}
 
-\item A few header decorations such as \verb"\secbannerpre" and \verb"\secbannerpost"
+\item A few header decorations such as \lstinline"\secbannerpre" and \lstinline"\secbannerpost"
     \begin{center}
-        \Large\heavierfont\bfseries\addfontfeature{LetterSpace=10}
+        \Large\heavyfont\bfseries\addfontfeature{LetterSpace=10}
         \secbannerpre{}
         NEW SECTION
         \secbannerpost{}
     \end{center}
+    For this template, it was turned on due to the command \lstinline"\bannerinsec" at the document preamble.
 
-\item To be continued.
+\item Special hair space character \lstinline"\hrsp" which does make huge difference between
+    \begin{center}
+        \begin{tabular}{rcl}
+            Hyphenated-text     & \quad vs \quad &  Hyphenated{\hrsp-\hrsp}text \\
+            10 -- 99 \;or\; 10--99  & \quad vs \quad &  10{\hrsp--\hrsp}99 \\
+            ต่างๆ นานา           & \quad vs \quad &  ต่าง{\hrsp}ๆ{\hrsp}นานา \\
+        \end{tabular}
+    \end{center}
+
+\item Free Font Awesome 5 can be included like so: \lstinline"\faShower" = \faShower. \\
+    To use the pro version of the font (assume that it is installed in the font directory of the local machine),
+    change the following lines in \verb"tenth.sty":
+\begin{lstlisting}[numbers=none]
+% \RequirePackage[fixed]{fontawesome5}
+\RequirePackage[pro,fixed]{fontawesome5}
+\end{lstlisting}
+
+\item {\lettersp[15] LETTERSPACING} may be added with the following command:
+\begin{lstlisting}[numbers=none]
+{\lettersp[5] Hello}  % Turn on letterspacing with value 5
+{\lettersp Hello}  % Default letterspacing with value 5
+\end{lstlisting}
+    The special command \lstinline"\duration" can be used to typeset time duration.
+    For example, \lstinline"\duration{FEB 2018 -- JAN 2019}" would produce “\duration{FEB 2018 -- JAN 2019}”.
+
+\item Page header can be customized by redefining \lstinline"\pageheader" command.
+    For example, to get the page header you see on this page, put the following code in document preamble:
+\begin{lstlisting}[numbers=none]
+\renewrobustcmd{\pageheader}{\XeLaTeX{} template}
+\end{lstlisting}
+
+\item As you might have seen earlier, source code may be included through \lstinline"lstlisting" package.
+    This template pre-defines color palette for source code highlightings (see source).
+
+\begin{lstlisting}[language=python]
+import functools
+import operator
+from typing import Iterable, TypeVar
+
+T = TypeVar['T']
+
+
+def product(values: Iterable[T]) -> T:
+    """
+    Compute the product of all given values.
+    """
+    return functools.reduce(operator.mul, values)
+\end{lstlisting}
+    Notice that FiraCode font is used, with ligatures enabled 
+    (such as ‘\texttt{-{\vphantom{!}}>}’ being substituted by ‘\texttt{->}’).
+
+\item Thai enumeration counters are supported by turning on 
+    \lstinline"\redefinethaicounters" in the document preamble.
+    
+    Then set the \lstinline"label" option of the \lstinline"enumerate"
+    to something like \lstinline"label={\thaialphs*.}" or \lstinline"label={\thainum*.}".
+
+    For example, here is the \textbf{list of all known elements in the periodic table}.
+    \begin{multicols}{3}
+    \begin{enumerate}[label={\thaialphs*.}]
+        \item Hydrogen
+        \item Helium
+        \item Lithium
+        \item Beryllium
+        \item Boron
+        \item Carbon
+        \item Nitrogen
+        \item Oxygen
+        \item Fluorine
+        \item Neon
+        \item Sodium
+        \item Magnesium
+        \item Aluminum
+        \item Silicon
+        \item Phosphorus
+        \item Sulfur
+        \item Chlorine
+        \item Argon
+        \item Potassium
+        \item Calcium
+        \item Scandium
+        \item Titanium
+        \item Vanadium
+        \item Chromium
+        \item Manganese
+        \item Iron
+        \item Cobalt
+        \item Nickel
+        \item Copper
+        \item Zinc
+        \item Gallium
+        \item Germanium
+        \item Arsenic
+        \item Selenium
+        \item Bromine
+        \item Krypton
+        \item Rubidium
+        \item Strontium
+        \item Yttrium
+        \item Zirconium
+        \item Niobium
+        \item Molybdenum
+        \item Technetium
+        \item Ruthenium
+        \item Rhodium
+        \item Palladium
+        \item Silver
+        \item Cadmium
+        \item Indium
+        \item Tin
+        \item Antimony
+        \item Tellurium
+        \item Iodine
+        \item Xenon
+        \item Cesium
+        \item Barium
+        \item Lanthanum
+        \item Cerium
+        \item Praseodymium
+        \item Neodymium
+    \end{enumerate}
+    \end{multicols}
+
+    \begin{multicols}{3}
+    \begin{enumerate}[label={\thaialphs*.},start=62]
+        \item Promethium
+        \item Samarium
+        \item Europium
+        \item Gadolinium
+        \item Terbium
+        \item Dysprosium
+        \item Holmium
+        \item Erbium
+        \item Thulium
+        \item Ytterbium
+        \item Lutetium
+        \item Hafnium
+        \item Tantalum
+        \item Tungsten
+        \item Rhenium
+        \item Osmium
+        \item Iridium
+        \item Platinum
+        \item Gold
+        \item Mercury
+        \item Thallium
+        \item Lead
+        \item Bismuth
+        \item Polonium
+        \item Astatine
+        \item Radon
+        \item Francium
+        \item Radium
+        \item Actinium
+        \item Thorium
+        \item Protactinium
+        \item Uranium
+        \item Neptunium
+        \item Plutonium
+        \item Americium
+        \item Curium
+        \item Berkelium
+        \item Californium
+        \item Einsteinium
+        \item Fermium
+        \item Mendelevium
+        \item Nobelium
+        \item Lawrencium
+        \item Rutherfordium
+        \item Dubnium
+        \item Seaborgium
+        \item Bohrium
+        \item Hassium
+        \item Meitnerium
+        \item Darmstadtium
+        \item Roentgenium
+        \item Copernicium
+        \item Nihonium
+        \item Flerovium
+        \item Moscovium
+        \item Livermorium
+        \item Tennessine
+        \item Oganesson
+        \item[] \phantom{x}
+        \item[] \phantom{x}
+    \end{enumerate}
+    \end{multicols}
+
+    \textbf{List of Thai months in a year.}
+    \begin{enumerate}[label={\thainum*.}]
+        \item มกราคม
+        \item กุมภาพันธ์
+        \item มีนาคม
+        \item เมษายน
+        \item พฤษภาคม
+        \item มิถุนายน
+        \item กรกฎาคม
+        \item สิงหาคม
+        \item กันยายน
+        \item ตุลาคม
+        \item พฤศจิกายน
+        \item ธันวาคม
+    \end{enumerate}
 
 \end{enumerate}
-

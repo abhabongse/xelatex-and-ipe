@@ -38,6 +38,7 @@
 \RequirePackage{amsmath}
 \RequirePackage[MnSymbol]{mathspec}
 \RequirePackage[fixed]{fontawesome5}
+% \RequirePackage[pro,fixed]{fontawesome5}
 \RequirePackage{xunicode}
 \RequirePackage{xltxtra}
 
@@ -79,34 +80,39 @@
     Mapping         = tex-text ,
 }
 
-\newfontfamily\heavierfont[
-    UprightFont     = *-Regular ,
-    ItalicFont      = *-Italic ,
-    BoldFont        = *-ExtraBold ,
-    BoldItalicFont  = *-ExtraBoldItalic ,
+\newfontfamily\thinfont[
+    UprightFont     = *-Thin ,
+    ItalicFont      = *-ThinItalic ,
+    BoldFont        = *-Medium ,
+    BoldItalicFont  = *-MediumItalic ,
 ]{Sarabun}
 
-\newfontfamily\lighterfont[
+\newfontfamily\lightfont[
     UprightFont     = *-ExtraLight ,
     ItalicFont      = *-ExtraLightItalic ,
     BoldFont        = *-SemiBold ,
     BoldItalicFont  = *-SemiBoldItalic ,
 ]{Sarabun}
 
-
+\newfontfamily\heavyfont[
+    UprightFont     = *-Regular ,
+    ItalicFont      = *-Italic ,
+    BoldFont        = *-ExtraBold ,
+    BoldItalicFont  = *-ExtraBoldItalic ,
+]{Sarabun}
 
 \setmainfont{Sarabun}
 \setmonofont{FiraCode}
 \setmathsfont(Digits,Latin,Greek){Sarabun}
-\setmathrm{IBMPlexSans}
+\setmathrm{Sarabun}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ---- Typographies ---- %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{relsize}
 \RequirePackage[factor=1150]{microtype}
-\newrobustcmd{\letterspace}{\addfontfeature{LetterSpace=5}}
-\newrobustcmd{\duration}[1]{{\heavierfont\relscale{0.8}\addfontfeature{LetterSpace=10}#1}}
+\newrobustcmd{\lettersp}[1][5]{\addfontfeature{LetterSpace=#1}}
+\newrobustcmd{\duration}[1]{{\heavyfont\relscale{0.8}\addfontfeature{LetterSpace=10}#1}}
 \newrobustcmd{\ifpageodd}[2]{\ifodd\thepage{#1}\else{#2}\fi}
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -133,7 +139,7 @@
 \colorlet{CodePrimaryKeyword}{RoyalBlue3}
 \colorlet{CodeSecondaryKeyword}{Red3}
 \colorlet{CodeTertiaryKeyword}{TealBlue}
-\colorlet{CodeIdentifier}{black!60!white}
+\colorlet{CodeIdentifier}{black!80!white}
 \colorlet{CodeNumber}{Red3}
 \colorlet{CodeString}{Red3}
 \colorlet{CodeComment}{Green4}
@@ -146,7 +152,7 @@
 \reversemarginpar
 \RequirePackage{sidenotes}
 \newrobustcmd{\adjustsidenote}[1]{%
-    \RenewDocumentCommand\sidenotetext{ o o +m }{%      
+    \RenewDocumentCommand\sidenotetext{ o o +m }{%
     \IfNoValueOrEmptyTF{##1}{%
         \@sidenotes@placemarginal{##2}{#1\vphantom{~}\llap{\textsuperscript{\thesidenote}{}\,}\footnotesize##3}%
         \refstepcounter{sidenote}%
@@ -187,25 +193,73 @@
 %   labelindent=0pc,labelsep=1pc,%
 % }
 
+% Invoke this command to enable Thai counters in enumeration labels.
+\newrobustcmd{\redefinethaicounters}{
+    % Define Thai numeral translation
+    \def\thaitranslate##1{\ifx @##1%
+        \else\ifcase##1๐\or ๑\or ๒\or ๓\or ๔\or ๕\or ๖\or ๗\or ๘\or ๙\else\fi
+        \expandafter\thaitranslate
+        \fi
+    }
+    \def\@thainum##1{\expandafter\thaitranslate\number##1@}
+    \def\thainum##1{\expandafter\@thainum\csname c@##1\endcsname}
+    % Define Thai alphabet (skipping ฃฅฆ)
+    \def\thaialph##1{\expandafter\@thaialph\csname c@##1\endcsname}
+    \def\@thaialph##1{%
+        \ifcase##1\or ก\or ข\or ค\or ง\or จ\or ฉ\or ช\or ซ\or ฌ\or ญ\or ฎ\or ฏ\or
+            ฐ\or ฑ\or ฒ\or ณ\or ด\or ต\or ถ\or ท\or ธ\or น\or บ\or ป\or ผ\or ฝ\or
+            พ\or ฟ\or ภ\or ม\or ย\or ร\or ล\or ว\or ศ\or ษ\or ส\or ห\or ฬ\or อ\or
+            ฮ\else\@ctrerr\fi}
+    % Define full Thai alphabet
+    \def\thaiAlph##1{\expandafter\@thaiAlph\csname c@##1\endcsname}
+    \def\@thaiAlph##1{%
+        \ifcase##1\or ก\or ข\or ฃ\or ค\or ฅ\or ฆ\or ง\or จ\or ฉ\or ช\or ซ\or ฌ\or ญ\or ฎ\or ฏ\or
+            ฐ\or ฑ\or ฒ\or ณ\or ด\or ต\or ถ\or ท\or ธ\or น\or บ\or ป\or ผ\or ฝ\or
+            พ\or ฟ\or ภ\or ม\or ย\or ร\or ล\or ว\or ศ\or ษ\or ส\or ห\or ฬ\or อ\or
+            ฮ\else\@ctrerr\fi}
+    % Define multi-character Thai alphabet counter
+    \newalphalph{\@thaialphs}[alph]{\@thaialph}{41}
+    \newrobustcmd*{\thaialphs}[1]{%
+        \expandafter\@thaialphs\csname c@##1\endcsname%
+    }
+    \newalphalph{\@thaiAlphs}[alph]{\@thaiAlph}{41}
+    \newrobustcmd*{\thaiAlphs}[1]{%
+        \expandafter\@thaiAlphs\csname c@##1\endcsname%
+    }
+    % Add Thai enumeration counters
+    \AddEnumerateCounter{\thainum}{\@thainum}{๙}
+    \AddEnumerateCounter{\thaialph}{\@thaialph}{ณ}
+    \AddEnumerateCounter{\thaiAlph}{\@thaiAlph}{ณ}
+    \AddEnumerateCounter{\thaialphs}{\@thaialphs}{ณ}
+    \AddEnumerateCounter{\thaiAlphs}{\@thaiAlphs}{ณ}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ---- Headings and sections ---- %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% TODO
 \RequirePackage{titling}
-\pretitle{\begin{center}\Huge\heavierfont}
+\pretitle{\begin{center}\Huge\heavyfont}
 \posttitle{\end{center}\vskip 0pc}
 
-\RequirePackage{titlesec}
+\RequirePackage[explicit]{titlesec}
 \setcounter{secnumdepth}{1}
-\titleformat{\section}{\Large\heavierfont\bfseries\addfontfeature{LetterSpace=10}}{\thesection}{1pc}{}
+
+\titleformat{\section}{\Large\heavyfont\bfseries\addfontfeature{LetterSpace=10}}{\thesection}{1pc}{#1}
 \titleformat{\subsection}{\large\bfseries}{\thesection}{1pc}{}
 % \titleformat{\subsubsection}{\headingfont\bfseries}{\thesubsubsection}{1pc}{}
+
+\newrobustcmd{\bannerinsec}{%
+    \titleformat{\section}{\Large\heavyfont\bfseries\addfontfeature{LetterSpace=10}}{\thesection}{1pc}{\secbannerpre{} ##1 \secbannerpost}%
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ---- Page headers and footers ---- %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{fancyhdr}
-\fancypagestyle{plain}{\fancyhf{}\fancyfoot[LE,RO]{\thepage}}
+\newrobustcmd{\pageheader}{}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[LE,RO]{\pageheader}\fancyfoot[LE,RO]{\thepage}}
+\fancypagestyle{titlepage}{\fancyhf{}\fancyfoot[LE,RO]{\thepage}}
 \renewrobustcmd{\headrulewidth}{0pt}
 \renewrobustcmd{\footrulewidth}{0pt}
 \pagestyle{plain}
@@ -221,8 +275,7 @@
 %% ---- Text styles ---- %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Underline styles
-\RequirePackage{ulem}
-\normalem
+\RequirePackage[normalem]{ulem}
 
 %% Verbatim mode
 \RequirePackage{fancyvrb}
@@ -235,8 +288,8 @@
     before upper={\rule[-2.5pt]{0pt}{10pt}},boxrule=0pt,%
     boxsep=0pt,left=3pt,right=3pt,top=0pt,bottom=0pt,%
 }
-\newrobustcmd{\labelpill}[2][PillColor]{{\relscale{0.8}\pill[#1]{\lighterfont\bfseries#2}}}
-\newrobustcmd{\labelpillalt}[2][AltPillColor]{{\relscale{0.8}\pill[#1]{\lighterfont\bfseries\color{white}#2}}}
+\newrobustcmd{\labelpill}[2][PillColor]{{\relscale{0.8}\pill[#1]{\lightfont\bfseries#2}}}
+\newrobustcmd{\labelpillalt}[2][AltPillColor]{{\relscale{0.8}\pill[#1]{\lightfont\bfseries\color{white}#2}}}
 
 %% Text highlights
 \newrobustcmd{\hlt}[2][PillColor]{%
@@ -414,16 +467,3 @@
 %% ---- Lorem Ipsum ---- %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{lipsum}
-
-%%%%%%%%%%%%%%%%%%%%%%%%
-%% ---- Drawings ---- %%
-%%%%%%%%%%%%%%%%%%%%%%%%
-\RequirePackage{tikz}
-\newrobustcmd*\choicecirc[1]{%
-\begin{tikzpicture}[baseline=-0.3em]
-\node[draw,circle,inner sep=1pt,minimum size=2.25ex](x) {\scriptsize\color{black!30}{#1}};
-\end{tikzpicture}}
-\newrobustcmd*\choicerect[1]{%
-\begin{tikzpicture}[baseline=-0.35em]
-\node[draw,rectangle,inner sep=1pt,minimum size=2ex](x) {\scriptsize\color{black!30}{#1}};
-\end{tikzpicture}}
