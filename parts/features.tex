@@ -58,14 +58,13 @@ This \LaTeX{} document template has the following features.
         \hlt{x^2} + \hlt{y^2} = z^2  \tag{Pythagorean Theorem}
     \end{equation}
 
-\item A few header decorations such as \lstinline"\secbannerpre" and \lstinline"\secbannerpost"
+\item Header decorations with the command, e.g., \lstinline"\secbanner[18pc]{NEW SECTION}"
     \begin{center}
         \Large\heavyfont\bfseries\addfontfeature{LetterSpace=10}
-        \secbannerpre{}
-        NEW SECTION
-        \secbannerpost{}
+        \secbanner[18pc]{NEW SECTION}
     \end{center}
-    For this template, it was turned on due to the command \lstinline"\bannerinsec" at the document preamble.
+    To use section banner automatically, turn it on with the command \lstinline"\bannerinsec" 
+    at the document preamble (result shown in this document uses \lstinline"\bannerinsec[17pc]").
 
 \item Special hair space character \lstinline"\hrsp" which does make huge difference between
     \begin{center}

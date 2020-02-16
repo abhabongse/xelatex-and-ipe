@@ -14,6 +14,7 @@
 %% ---- Very important utility packages ---- %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{etoolbox}
+\RequirePackage{calc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %% ---- Spacings ---- %%
@@ -249,8 +250,8 @@
 \titleformat{\subsection}{\large\bfseries}{\thesection}{1pc}{}
 % \titleformat{\subsubsection}{\headingfont\bfseries}{\thesubsubsection}{1pc}{}
 
-\newrobustcmd{\bannerinsec}{%
-    \titleformat{\section}{\Large\heavyfont\bfseries\addfontfeature{LetterSpace=10}}{\thesection}{1pc}{\secbannerpre{} ##1 \secbannerpost}%
+\newrobustcmd{\bannerinsec}[1][24pc]{%
+    \titleformat{\section}{\Large\heavyfont\bfseries\addfontfeature{LetterSpace=10}}{\thesection}{1pc}{\secbanner[#1]{##1}}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -309,8 +310,13 @@
 %% Decorators
 \newrobustcmd{\twoemrule}{\rule[2.25pt]{2em}{0.5pt}}
 \newrobustcmd{\threeemrule}{\rule[2.25pt]{3em}{0.5pt}}
-\newrobustcmd{\secbannerpre}{{\color{black!85!white}\rule[-0.5pt]{1.5pc}{9pt}}}
-\newrobustcmd{\secbannerpost}{{\color{black!85!white}\rule[-0.5pt]{10pc}{9pt}}}
+
+%% Text Banner
+\newrobustcmd{\secbanner}[2][24pc]{%
+    {\color{black!85!white}\rule[-0.5pt]{1.5pc}{9pt}}%
+    { #2 }%
+    {\color{black!85!white}\rule[-0.5pt]{#1-1.5pc-\widthof{ #2 }}{9pt}}%
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %% ---- Math mode ---- %%
